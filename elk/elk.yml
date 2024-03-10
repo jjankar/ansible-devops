@@ -1,0 +1,29 @@
+---
+- name: Install Elasticsearch 8.12.2
+  hosts: your_elasticsearch_hosts
+  become: true
+  tasks:
+    - name: Import Elasticsearch GPG key
+      rpm_key:
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: Add Elasticsearch YUM repository
+      yum_repository:
+        name: elasticsearch
+        description: Elasticsearch repository
+        baseurl: https://artifacts.elastic.co/packages/8.x/yum
+        gpgcheck: yes
+        gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        enabled: yes
+
+    - name: Install Elasticsearch
+      yum:
+        name: elasticsearch-8.12.2
+        state: present
+
+    - name: Start and enable Elasticsearch service
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes
+

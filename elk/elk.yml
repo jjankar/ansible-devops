@@ -3,6 +3,11 @@
   hosts: ec2_instance
   become: true
   tasks:
+    - name: Install Java
+      package:
+        name: java-12-openjdk-devel
+        state: present
+
     - name: Import Elasticsearch GPG key
       rpm_key:
         key: https://artifacts.elastic.co/GPG-KEY-elasticsearch

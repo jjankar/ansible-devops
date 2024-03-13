@@ -1,0 +1,17 @@
+---
+- name: Install Elasticsearch Stack
+  hosts: your_hosts
+  become: yes
+
+  tasks:
+    - name: Update yum packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Install Java 12 OpenJDK
+      yum:
+        name: java-12-openjdk
+        state: present
+
+ 
